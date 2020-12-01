@@ -1,2 +1,5 @@
-# aoc2015
-Advent of Code 2015
+# Advent of Code
+Years attempted:
+ * 2015
+ * 2020
+
