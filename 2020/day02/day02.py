@@ -9,13 +9,10 @@ if len(sys.argv) != 2:
 
 filename = sys.argv[1]
 
-in_file = open(filename, 'r')
-
 with open(filename) as f:
     lines = f.read().splitlines()
 
 SLED_REGEX = re.compile("(\d+)-(\d+) (.): (.+)")
-
 def validate_password_sled(string):
     m = SLED_REGEX.match(string)
 
@@ -32,7 +29,6 @@ def validate_password_sled(string):
     return passes
 
 TOBOGGAN_REGEX = re.compile("(\d+)-(\d+) (.): (.+)")
-
 def validate_password_toboggan(string):
     m = TOBOGGAN_REGEX.match(string)
 
@@ -55,7 +51,6 @@ def validate_password_toboggan(string):
 
     return passes
 
-# Part 1
 def part1():
     count = 0
     for line in lines:
@@ -65,7 +60,6 @@ def part1():
 
     return
 
-# Part 2
 def part2():
     count = 0
     for line in lines:
