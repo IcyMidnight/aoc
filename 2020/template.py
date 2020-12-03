@@ -1,33 +1,42 @@
 #!/usr/bin/python3
 
 import sys
-import re
 
 if len(sys.argv) != 2:
     print('Provide the filename')
     sys.exit(1)
 
-filename = sys.argv[1]
+def setup(filename):
+    with open(filename) as f:
+        lines = f.read().splitlines()
 
-with open(filename) as f:
-    lines = f.read().splitlines()
-
-def part1():
-    for line in lines:
+    for i, line in enumerate(lines):
         print(line)
-    return "Part 1"
 
-def part2():
+    return lines
 
-    return "Part 2"
+def part1(input):
+    return "NOT DONE"
+
+def part2(input):
+    return "NOT DONE"
 
 
 
 # Actually do the stuff
 
-p1_out = part1()
-p2_out = part2()
+print("\n -- Setup --")
+input = setup(sys.argv[1])
 
-print("----------------")
-print(p1_out)
-print(p2_out)
+print("\n -- Part 1 --")
+p1_out = part1(input)
+
+print("\n -- Part 2 --")
+p2_out = part2(input)
+
+print("\n -- Results --")
+print("Part 1:")
+print("  ", p1_out)
+print()
+print("Part 2:")
+print("  ", p2_out)

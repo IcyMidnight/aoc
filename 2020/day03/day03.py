@@ -6,10 +6,8 @@ if len(sys.argv) != 2:
     print('Provide the filename')
     sys.exit(1)
 
-input_filename = sys.argv[1]
-
-def setup():
-    with open(input_filename) as f:
+def setup(filename):
+    with open(filename) as f:
         lines = f.read().splitlines()
 
     terrain = []
@@ -63,15 +61,18 @@ def count_trees(terrain, right, down):
 
 
 # Actually do the stuff
+print("\n -- Setup --")
+input = setup(sys.argv[1])
 
-input = setup()
-print(" -- Part 1 --")
+print("\n -- Part 1 --")
 p1_out = part1(input)
-print(" -- Part 2 --")
+
+print("\n -- Part 2 --")
 p2_out = part2(input)
 
-print("\n  -- End --")
+print("\n -- Results --")
 print("Part 1:")
 print("  ", p1_out)
-print("\nPart 2:")
+print()
+print("Part 2:")
 print("  ", p2_out)
