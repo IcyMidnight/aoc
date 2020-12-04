@@ -42,7 +42,7 @@ def valid_passport(passport):
 
     print("{}: {}".format(valid, passport))
 
-    return vali
+    return valid
 
 PID_REGEX = re.compile("^\d{9}$")
 HAIR_REGEX = re.compile("^#[0-9a-f]{6}$")
