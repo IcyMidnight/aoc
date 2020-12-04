@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 
 import sys
+import re
+import pprint
+pp = pprint.pprint # in pyhton >= 3.8, from pprint import pp
+
 
 if len(sys.argv) != 2:
     print('Provide the filename')
@@ -9,13 +13,12 @@ if len(sys.argv) != 2:
 def setup(filename):
     with open(filename) as f:
         lines = f.read().splitlines()
-
-    for i, line in enumerate(lines):
-        print(line)
-
     return lines
 
 def part1(input):
+    for i, line in enumerate(input):
+        print(line)
+
     return "NOT DONE"
 
 def part2(input):
