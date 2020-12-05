@@ -5,6 +5,7 @@ import re
 import pprint
 pp = pprint.pprint # in pyhton >= 3.8, from pprint import pp
 
+from functools import reduce
 
 if len(sys.argv) != 2:
     print('Provide the filename')
@@ -15,22 +16,12 @@ def setup(filename):
         lines = f.read().splitlines()
     return lines
 
+# This is secretly a binary string. Just turn it into a number by mapping the
+# less character to 0 and assume the rest are more characters and map them to 1
 def partition(string, less, more):
-    e = len(string)
-    n = 0
-
-    bin_string = ""
-
-
-    for c in string:
-        n *= 2
-        if c == more:
-            bin_string += "1"
-            n += 1
-        else:
-            bin_string += "0"
-    # print("{} -> {}".format(string, bin_string))
-    return n
+    return reduce(lambda acc, e: acc * 2 + e,
+                  map(lambda c: 0 if c == less else 1,
+                      string))
 
 def calc_seat(boarding_pass):
     row_part, col_part = boarding_pass[:7], boarding_pass[7:]
