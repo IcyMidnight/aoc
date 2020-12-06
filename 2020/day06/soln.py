@@ -5,54 +5,54 @@ import re
 import pprint
 pp = pprint.pprint # in pyhton >= 3.8, from pprint import pp
 
+# Soltuion
 
-if len(sys.argv) != 2:
-    print('Provide the filename')
-    sys.exit(1)
+def do_the_sets(input, base_set, op):
+    answers = set(base_set)
+    groups = []
+    for i, line in enumerate(input):
+        if len(line) == 0:
+            groups.append(answers)
+            answers = set(base_set)
+        else:
+            answers = op(answers, set(line))
 
+    groups.append(answers)
+
+    # pp(groups)
+
+    return groups
+
+def sum_groups(groups):
+    return sum(map(len, groups))
+
+def part1(input):
+    groups = do_the_sets(input, "", lambda s1, s2: s1 | s2)
+
+    the_sum = sum_groups(groups)
+
+    return "Sum: {}".format(the_sum)
+
+def part2(input):
+    groups = do_the_sets(input, "abcdefghijklmnopqrstuvwxyz", lambda s1, s2: s1 & s2)
+
+    the_sum = sum_groups(groups)
+
+    return "Sum: {}".format(the_sum)
+
+
+
+# Execute the stuff
 def setup(filename):
     with open(filename) as f:
         lines = f.read().splitlines()
     return lines
 
-def part1(input):
-    answers = set()
-    sum = 0
-    for i, line in enumerate(input):
-        print(line)
-        if len(line) == 0:
-            print(len(answers))
-            sum += len(answers)
-            answers = set()
-        else:
-            answers = answers | set(line)
-
-    sum += len(answers)
-
-    return "Sum: {}".format(sum)
-
-def part2(input):
-    answers = set("abcdefghijklmnopqrstuvwxyz")
-    sum = 0
-    for i, line in enumerate(input):
-        print(line)
-        if len(line) == 0:
-            print(len(answers))
-            sum += len(answers)
-            answers = set("abcdefghijklmnopqrstuvwxyz")
-        else:
-            answers = answers & set(line)
-
-    sum += len(answers)
-
-    return "Sum: {}".format(sum)
-
-
-
-
-# Actually do the stuff
-
 print("\n -- Setup --")
+if len(sys.argv) != 2:
+    print('Provide the filename')
+    sys.exit(1)
+
 input = setup(sys.argv[1])
 
 print("\n -- Part 1 --")
