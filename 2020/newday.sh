@@ -7,9 +7,9 @@ days=`ls -d day* | wc -l`
 day="day${(l:2::0:)new_day}"
 
 mkdir $day
-cp ./template.py "${day}/${day}.py"
-touch "${day}/example.txt"
-touch "${day}/input.txt"
+cp ./template.py "${day}/soln.py"
+touch "${day}/ex.txt"
+touch "${day}/in.txt"
 
 cd $day
 
