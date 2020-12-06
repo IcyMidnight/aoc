@@ -30,8 +30,9 @@ def part1(input):
 
     return "Sum: {}".format(the_sum)
 
+POSSIBLE_ANSWERS = "abcdefghijklmnopqrstuvwxyz"
 def part2(input):
-    groups = do_the_sets(input, "abcdefghijklmnopqrstuvwxyz", lambda s1, s2: s1 & s2)
+    groups = do_the_sets(input, POSSIBLE_ANSWERS, lambda s1, s2: s1 & s2)
 
     the_sum = sum_groups(groups)
 
