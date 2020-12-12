@@ -10,7 +10,6 @@ pp = pprint.pprint # in pyhton >= 3.8, from pprint import pp
 # --- Soltuion ---
 
 
-# Directions: 0: North, 1: East, 2: Sourth, 3: West
 # What are the directions of movement for a given direction?
 DIR_MOVES = [
         ( 1,  0),  # North
@@ -18,17 +17,19 @@ DIR_MOVES = [
         (-1,  0),  # South
         ( 0, -1)   # West
     ]
+DIR_TO_NAME = ["N", "E", "S", "W"]
 
 # Figure out the new direction of the ship from the instruction
 def turn1(dirn, inst):
     cw = (inst[0] == 'R')
     degs = int(inst[1:])
-    quarter_turns = int(degs/90)
+    quarter_turns = degs//90
     if not cw:
         quarter_turns *= -1
     return (dirn + quarter_turns) % 4
 
 def exec1(pos, dirn, inst):
+    print("{} ->{} :: {}".format(pos, DIR_TO_NAME[dirn], inst))
     pos = list(pos)
     op = inst[0]
     mag = int(inst[1:])
@@ -54,9 +55,8 @@ def part1(data):
     dirn = 1
 
     for i, line in enumerate(data):
-        print(line)
         pos, dirn = exec1(pos, dirn, line)
-        print("{} -> {}".format(pos, dirn))
+        print("{} ->{}".format(pos, DIR_TO_NAME[dirn]))
 
 
     return abs(pos[0]) + abs(pos[1])
@@ -77,7 +77,7 @@ def turn2(pos, inst):
 
 def exec2(pos, wp, inst):
     wp  = list(wp)
-    print("{} - {} :: {}".format(pos, wp, inst))
+    print("{} ->{} :: {}".format(pos, wp, inst))
     op = inst[0]
     mag = int(inst[1:])
     if op == "N":
@@ -101,9 +101,8 @@ def part2(data):
     wp  = (1,10)
 
     for i, line in enumerate(data):
-        print(line)
         pos, wp = exec2(pos, wp, line)
-        print("{} -> {}".format(pos, wp))
+        print("{} ->{}".format(pos, wp))
 
 
     return abs(pos[0]) + abs(pos[1])
