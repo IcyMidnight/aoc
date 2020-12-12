@@ -1,0 +1,13 @@
+ -- Example --
+Part 1:
+   25
+
+Part 2:
+   286
+
+ -- Input --
+Part 1:
+   2847
+
+Part 2:
+   29839

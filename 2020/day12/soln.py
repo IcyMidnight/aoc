@@ -30,17 +30,17 @@ def turn1(dirn, inst):
 
 def exec1(pos, dirn, inst):
     pos = list(pos)
-    code = inst[0]
+    op = inst[0]
     mag = int(inst[1:])
-    if code == "N":
+    if op == "N":
         pos[0] += mag
-    elif code == "S":
+    elif op == "S":
         pos[0] -= mag
-    elif code == "E":
+    elif op == "E":
         pos[1] += mag
-    elif code == "W":
+    elif op == "W":
         pos[1] -= mag
-    elif code == "F":
+    elif op == "F":
         move = DIR_MOVES[dirn]
         pos[0] += move[0] * mag
         pos[1] += move[1] * mag
@@ -78,17 +78,17 @@ def turn2(pos, inst):
 def exec2(pos, wp, inst):
     wp  = list(wp)
     print("{} - {} :: {}".format(pos, wp, inst))
-    code = inst[0]
+    op = inst[0]
     mag = int(inst[1:])
-    if code == "N":
+    if op == "N":
         wp[0] += mag
-    elif code == "S":
+    elif op == "S":
         wp[0] -= mag
-    elif code == "E":
+    elif op == "E":
         wp[1] += mag
-    elif code == "W":
+    elif op == "W":
         wp[1] -= mag
-    elif code == "F":
+    elif op == "F":
         pos = (pos[0] + mag * wp[0], pos[1] + mag * wp[1])
     else:
         wp = turn2(wp, inst)
