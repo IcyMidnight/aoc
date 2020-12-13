@@ -77,62 +77,6 @@ def find_neighbour(grid, x, y, dx, dy):
 def part1(grid):
     return execute(grid, partial(count_rule, find_neighbour), 4)
 
-# def record_last(grid, record, start, delta):
-#     last_seen = FLOOR
-#
-# def update_last(last, new):
-#     return new if new != FLOOR else last
-#
-# def update(grid, record, pos, last):
-#     return
-#
-# def do_diag(grid, size, record, start, dirn):
-#     lazy_max = max(size[0], size[1])
-#
-#     inc_last = FLOOR
-#     dec_last = FLOOR
-#
-#     for i in reversed(range(lazy_max)):
-#         x_inc, y_inc = start[0] - i, start[1] - i
-#         x_dec, y_dec = start[0] + i, start[1] + i
-#
-#         if x_inc >= 0 and y_inc >= 0:
-#
-#
-#
-# def pre_process_grid(grid, size):
-#     max_x, max_y = size
-#     record = [[[FLOOR for z in range(9)] for y in range(max_y)] for x in range(max_x)]
-#     for x in range(max_x):
-#         inc_last = FLOOR
-#         dec_last = FLOOR
-#
-#         do_diag(grid, size, record, (x, 0),  1)
-#         do_diag(grid, size, record, (x, 0), -1)
-#
-#         for y in range(max_y):
-#             inc_y, dec_y = y, max_y - y - 1
-#             record[x][inc_y][0] = inc_last
-#             record[x][dec_y][1] = dec_last
-#
-#             inc_last = update_last(inc_last, grid[x][inc_y])
-#             dec_last = update_last(dec_last, grid[x][dec_y])
-#     for y in range(max_y):
-#         inc_last = FLOOR
-#         dec_last = FLOOR
-#
-#         for x in range(max_x):
-#             inc_x, dec_x = x, max_x - x - 1
-#             record[inc_x][y][2] = inc_last
-#             record[dec_x][y][3] = dec_last
-#
-#             inc_last = update_last(inc_last, grid[inc_x][y])
-#             dec_last = update_last(dec_last, grid[dec_x][y])
-#
-#
-#
-#     return record
-
 def find_visible(size, grid, x, y, dx, dy):
     cx, cy = x+dx, y+dy
     max_x, max_y = size
@@ -142,14 +86,15 @@ def find_visible(size, grid, x, y, dx, dy):
         cx, cy = cx+dx, cy+dy
     return FLOOR
 
+# Works, but slowly. You end up running the rows, cols, diags over andover.
+#
+# A nicer way would be to just go around the 4 edges of the grid and run the
+# two diagonals at each position. The rows/cols would only need to be done
+# on two egdes, say x=0 and y=0. The downside to this is that you'd do each diag
+# twice guaranteed. You could probably do math on which is the long edge and
+# maybe only do some of the diags twice, or maybe there's a way to do each one
+# only once.... who knows.
 def part2(grid):
-#     record = defaultdict(lambda: defaultdict(str))
-#
-#
-#     record = pre_process_grid(grid, size)
-#
-#     pp(record)
-#     #pp([list(v.values()) for v in dict(record).values()])
     return execute(grid,
                    partial(count_rule,
                            partial(find_visible, grid_size(grid))),
