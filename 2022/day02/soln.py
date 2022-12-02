@@ -24,34 +24,38 @@ BEATS = {
 }
 LOSES_TO = {v: k for k, v in BEATS.items()}
 
-SCORE = {
-    'rock': 1,
-    'paper': 2,
+PLAY_SCORE = {
+    'rock':     1,
+    'paper':    2,
     'scissors': 3,
+}
+OUTCOME_SCORE = {
+    'win':  6,
+    'tie':  3,
+    'loss': 0,
 }
 
 def play_game_p1(game):
     a = DECODE[game[0]]
     x = DECODE[game[1]]
-    print('{} {} {}'.format(a, x, BEATS[a]))
-    play_score = SCORE[x]
+
     if a == x:
         outcome = 'tie'
-        outcome_score = 3
     elif BEATS[a] == x:
         outcome = 'win'
-        outcome_score = 6
     else:
         outcome = 'loss'
-        outcome_score = 0
+
+    play_score    = PLAY_SCORE[x]
+    outcome_score = OUTCOME_SCORE[outcome]
 
     score = play_score + outcome_score
-    print('Game ({},{}) outcome: {} (({}) + ({}) = {})'.format(a, x, outcome, play_score, outcome_score, score))
+    #print('Game ({},{}) outcome: {} (({}) + ({}) = {})'.format(a, x, outcome, play_score, outcome_score, score))
     return score
 
 def play_game_p2(game):
     OUTCOMES = {
-        'X': 'lose',
+        'X': 'loss',
         'Y': 'tie',
         'Z': 'win',
     }
@@ -59,18 +63,17 @@ def play_game_p2(game):
     a = DECODE[game[0]]
     outcome = OUTCOMES[game[1]]
     if outcome == 'tie':
-        outcome_score = 3
         x = a
     elif outcome == 'win':
-        outcome_score = 6
         x = BEATS[a]
     else:
-        outcome_score = 0
         x = LOSES_TO[a]
-    play_score = SCORE[x]
+
+    play_score    = PLAY_SCORE[x]
+    outcome_score = OUTCOME_SCORE[outcome]
 
     score = play_score + outcome_score
-    print('Game ({},{}) outcome: {} (({}) + ({}) = {})'.format(a, x, outcome, play_score, outcome_score, score))
+    #print('Game ({},{}) outcome: {} (({}) + ({}) = {})'.format(a, x, outcome, play_score, outcome_score, score))
     return score
 
 def play(strat, player):
@@ -78,15 +81,7 @@ def play(strat, player):
     #pp(scores)
     return sum(scores)
 
-def main(args):
-    # data = [x.strip().split('\n') for x in sys.stdin.read().split('\n\n')]
-    # data = [int(s.strip()) for s in sys.stdin]
-    if len(sys.argv) != 2:
-        print('Provide the filename')
-        sys.exit(1)
-
-    filename = sys.argv[1]
-
+def main(filename):
     with open(filename, 'r') as f:
         data = f.read()
 
@@ -97,10 +92,14 @@ def main(args):
     p1 = play(strat, play_game_p1)
     print('Part 1: {}'.format(p1))
 
-
     p2 = play(strat, play_game_p2)
     print('Part 2: {}'.format(p2))
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    if len(sys.argv) != 2:
+        print('Provide the filename')
+        sys.exit(1)
+
+    filename = sys.argv[1]
+    main(filename)
