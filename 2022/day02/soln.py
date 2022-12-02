@@ -22,6 +22,7 @@ BEATS = {
     'paper':    'scissors',
     'scissors': 'rock',
 }
+LOSES_TO = {v: k for k, v in BEATS.items()}
 
 SCORE = {
     'rock': 1,
@@ -29,7 +30,7 @@ SCORE = {
     'scissors': 3,
 }
 
-def play_game(game):
+def play_game_p1(game):
     a = DECODE[game[0]]
     x = DECODE[game[1]]
     print('{} {} {}'.format(a, x, BEATS[a]))
@@ -48,9 +49,33 @@ def play_game(game):
     print('Game ({},{}) outcome: {} (({}) + ({}) = {})'.format(a, x, outcome, play_score, outcome_score, score))
     return score
 
-def play(strat):
-    scores = [play_game(game) for game in strat]
-    pp(scores)
+def play_game_p2(game):
+    OUTCOMES = {
+        'X': 'lose',
+        'Y': 'tie',
+        'Z': 'win',
+    }
+
+    a = DECODE[game[0]]
+    outcome = OUTCOMES[game[1]]
+    if outcome == 'tie':
+        outcome_score = 3
+        x = a
+    elif outcome == 'win':
+        outcome_score = 6
+        x = BEATS[a]
+    else:
+        outcome_score = 0
+        x = LOSES_TO[a]
+    play_score = SCORE[x]
+
+    score = play_score + outcome_score
+    print('Game ({},{}) outcome: {} (({}) + ({}) = {})'.format(a, x, outcome, play_score, outcome_score, score))
+    return score
+
+def play(strat, player):
+    scores = [player(game) for game in strat]
+    #pp(scores)
     return sum(scores)
 
 def main(args):
@@ -69,8 +94,12 @@ def main(args):
 
     strat = [tuple(line.split(' ')) for line in lines]
 
-    pp(play(strat))
+    p1 = play(strat, play_game_p1)
+    print('Part 1: {}'.format(p1))
 
+
+    p2 = play(strat, play_game_p2)
+    print('Part 2: {}'.format(p2))
 
 
 if __name__ == '__main__':
