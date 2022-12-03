@@ -42,7 +42,6 @@ def turn(v, d='left'):
 
 def priority(t):
     ot = ord(t)
-    print('{} {} {} {}'.format(t, ot, ord('a'), ord('A')))
     if ot < ord('a'):
         return ot - ord('A') + 27
     return ot - ord('a') + 1
@@ -54,8 +53,8 @@ def groups_of(col, n):
     return zip(*(iter(col),) * n)
 
 def part1(sacks):
-    #print(sacks)
     split_sacks = [(sack[:int(len(sack)/2)], sack[int(len(sack)/2):]) for sack in sacks]
+    #print(split_sacks)
 
     sets = [(set(sorted(sack[0])), set(sorted(sack[1]))) for sack in split_sacks]
     #print(sets)
@@ -64,7 +63,6 @@ def part1(sacks):
     #print(overlaps)
 
     priorities = [[priority(t) for t in overlap] for overlap in overlaps]
-
     #print(priorities)
 
     the_sum = sum([sum(ps) for ps in priorities])
@@ -73,7 +71,7 @@ def part1(sacks):
 
 def part2(sacks):
     groups = [[set(e) for e in g] for g in groups_of(sacks, 3)]
-    print(groups)
+    #print(groups)
 
     badges = [list(set.intersection(*g))[0] for g in groups]
 
@@ -82,7 +80,7 @@ def part2(sacks):
 def main(file):
     data = file.read().strip().split('\n')
 
-    print(data)
+    #print(data)
 
     result = part1(data)
     print('Part 1 {}'.format(result))
