@@ -47,36 +47,47 @@ def priority(t):
         return ot - ord('A') + 27
     return ot - ord('a') + 1
 
+def groups_of(col, n):
+    # Fun thing I stole from stack overflow.
+    # We grab an iterator and then turn it into a tuple of n references to it, zip grabs an entry
+    # from each reference, depleting the iterator each time. Nice!
+    return zip(*(iter(col),) * n)
+
 def part1(sacks):
-    print(sacks)
-    sets = [(set(sorted(sack[0])), set(sorted(sack[1]))) for sack in sacks]
-    print(sets)
+    #print(sacks)
+    split_sacks = [(sack[:int(len(sack)/2)], sack[int(len(sack)/2):]) for sack in sacks]
+
+    sets = [(set(sorted(sack[0])), set(sorted(sack[1]))) for sack in split_sacks]
+    #print(sets)
 
     overlaps = [l.intersection(r) for l, r in sets]
-    print(overlaps)
+    #print(overlaps)
 
     priorities = [[priority(t) for t in overlap] for overlap in overlaps]
 
-    print(priorities)
+    #print(priorities)
 
     the_sum = sum([sum(ps) for ps in priorities])
 
     return the_sum
 
-def part2():
-    return None
+def part2(sacks):
+    groups = [[set(e) for e in g] for g in groups_of(sacks, 3)]
+    print(groups)
+
+    badges = [list(set.intersection(*g))[0] for g in groups]
+
+    return sum([priority(b) for b in badges])
 
 def main(file):
     data = file.read().strip().split('\n')
 
     print(data)
 
-    sacks = [(sack[:int(len(sack)/2)], sack[int(len(sack)/2):]) for sack in data]
-
-    result = part1(sacks)
+    result = part1(data)
     print('Part 1 {}'.format(result))
 
-    result = part2()
+    result = part2(data)
     print('Part 2 {}'.format(result))
 
 if __name__ == '__main__':
