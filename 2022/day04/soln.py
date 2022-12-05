@@ -49,8 +49,10 @@ def part1(ranges):
     #pp(completely_contained)
     return sum(completely_contained)
 
-def part2():
-    return None
+def part2(ranges):
+    overlaps = [1 if s1 & s2 else 0 for s1, s2 in ranges]
+    #pp(overlaps)
+    return sum(overlaps)
 
 def main(file):
     data = file.read().strip().split('\n')
@@ -66,7 +68,7 @@ def main(file):
     result = part1(ranges)
     print('Part 1 {}'.format(result))
 
-    result = part2()
+    result = part2(ranges)
     print('Part 2 {}'.format(result))
 
 if __name__ == '__main__':
